@@ -23,6 +23,13 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: "hello API" });
 });
 
+// This get takes a timestamp with an empty parameter and returns the current time
+let currentTime = Date().toString();
+let currentUnixTime = Date.now();
+app.get("/api/timestamp", function (req, res) {
+  res.json({ unix: currentUnixTime, utc: currentTime });
+});
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log("Your app is listening on port " + listener.address().port);
