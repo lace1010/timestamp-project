@@ -23,7 +23,7 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: "hello API" });
 });
 
-// This get takes a timestamp with an empty parameter and returns the current time
+// This takes a timestamp with an empty parameter and returns the current time since no date is there
 app.get("/api/timestamp", function (req, res) {
   // Make sure variables are inside the function so the update everytime website is refreshed.
   let currentTime = Date().toString();
@@ -37,19 +37,26 @@ function fomatUTCDate(date) {}
 app.get("/api/timestamp/:date", function (req, res) {
   // :date is just the parameter that we pass into it.
   let date_string = req.params.date; // This is what the date parameter passed into the site is
-
+  let date;
   // We need to take the dateString and break it up into an array using .split() to create a js Date with its' values
   let dateInArray = date_string.split("-");
 
-  // Create a js date with the date that is passed in if it is ISO format
-  let date = new Date(dateInArray[0], dateInArray[1] - 1, dateInArray[2]);
+  // Create a js date if it is passed in year-month-day format
+  if (dateInArray.length > 1) {
+    date = new Date(dateInArray[0], dateInArray[1] - 1, dateInArray[2]);
+  }
+  // Create a js date if it is passed in unix format
+  else {
+    let millisecondDate_string = date_string * 1000; // First convert data_string to milliseconds
+    date = new Date(millisecondDate_string); // Set the date in variable
+  }
 
   // Handles if date input is invalid
   if (date == "Invalid Date") {
     res.json({ error: "Invalid Date" });
   }
 
-  // Handles if date is valid (normal format for now)
+  // Handles if date is valid
   else {
     res.json({
       unix: date.valueOf(), // Passes the date in a unix timestamp format
