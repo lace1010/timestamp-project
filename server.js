@@ -47,7 +47,7 @@ app.get("/api/timestamp/:date", function (req, res) {
   }
   // Create a js date if it is passed in unix format
   else {
-    let millisecondDate_string = date_string * 1000; // First convert data_string to milliseconds
+    let millisecondDate_string = parseInt(date_string); // First convert data_string to milliseconds (needs to be converted into a number as Date() will only accept unix as a number)
     date = new Date(millisecondDate_string); // Set the date in variable
   }
 
