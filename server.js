@@ -40,18 +40,20 @@ app.get("/api/timestamp/:date", function (req, res) {
 
   // We need to take the dateString and break it up into an array using .split() to create a js Date with its' values
   let dateInArray = date_string.split("-");
-  console.log(dateInArray[0]);
-  console.log(dateInArray[1]);
-  console.log(dateInArray[2]);
 
-  // Create a js date with the date that is passed in
+  // Create a js date with the date that is passed in if it is ISO format
   let date = new Date(dateInArray[0], dateInArray[1] - 1, dateInArray[2]);
+
+  // Handles if date input is invalid
   if (date == "Invalid Date") {
     res.json({ error: "Invalid Date" });
-  } else {
+  }
+
+  // Handles if date is valid (normal format for now)
+  else {
     res.json({
       unix: date.valueOf(), // Passes the date in a unix timestamp format
-      utc: date.toDateString() + " " + date.toTimeString(),
+      utc: date.toUTCString(), // toUTCString is the format the freeCodeCamp test needs to pass
     });
   }
 });
