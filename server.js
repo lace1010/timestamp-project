@@ -46,11 +46,14 @@ app.get("/api/timestamp/:date", function (req, res) {
 
   // Create a js date with the date that is passed in
   let date = new Date(dateInArray[0], dateInArray[1] - 1, dateInArray[2]);
-
-  res.json({
-    unix: date.valueOf(),
-    utc: date.toDateString() + " " + date.toTimeString(),
-  });
+  if (date == "Invalid Date") {
+    res.json({ error: "Invalid Date" });
+  } else {
+    res.json({
+      unix: date.valueOf(), // Passes the date in a unix timestamp format
+      utc: date.toDateString() + " " + date.toTimeString(),
+    });
+  }
 });
 
 // listen for requests :)
