@@ -42,9 +42,7 @@ app.get("/api/timestamp/:date", function (req, res) {
   let dateInArray = date_string.split("-");
 
   // Create a js date if it is passed in year-month-day format
-  // if the array has more than one item then it year-month-day format
-  // Also handles if the year has 4 digits or less.
-  if (dataInArray.length > 1 && dateInArray[0] <= 4) {
+  if (dateInArray.length > 1) {
     date = new Date(dateInArray[0], dateInArray[1] - 1, dateInArray[2]);
   }
   // Create a js date if it is passed in unix format
