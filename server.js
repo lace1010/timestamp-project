@@ -31,8 +31,6 @@ app.get("/api/timestamp", function (req, res) {
   res.json({ unix: currentUnixTime, utc: currentTime });
 });
 
-function fomatUTCDate(date) {}
-
 // This receives anything that is put into date parameter. In function we say if it is valid or not.
 app.get("/api/timestamp/:date", function (req, res) {
   // :date is just the parameter that we pass into it.
@@ -42,12 +40,14 @@ app.get("/api/timestamp/:date", function (req, res) {
   let dateInArray = date_string.split("-");
 
   // Create a js date if it is passed in year-month-day format
-  if (dateInArray.length > 1) {
+  if (dateInArray.length > 1 && dateInArray[0].length <= 4) {
     date = new Date(dateInArray[0], dateInArray[1] - 1, dateInArray[2]);
   }
   // Create a js date if it is passed in unix format
   else {
-    let millisecondDate_string = parseInt(date_string); // First convert data_string to milliseconds (needs to be converted into a number as Date() will only accept unix as a number)
+    console.log(date_string);
+    let millisecondDate_string = date_string * 1; // First convert data_string to milliseconds (needs to be converted into a number as Date() will only accept unix as a number)
+    console.log(millisecondDate_string);
     date = new Date(millisecondDate_string); // Set the date in variable
   }
 
