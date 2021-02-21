@@ -34,17 +34,17 @@ app.get("/api/timestamp", function (req, res) {
 // This receives anything that is put into date parameter. In function we say if it is valid or not.
 app.get("/api/timestamp/:date", function (req, res) {
   // :date is just the parameter that we pass into it.
-  let date_string = req.params.date; // This is what the date parameter passed into the site is
+  let dateString = req.params.date; // This is what the date parameter passed into the site is
   let date;
 
   // Create a js date if it is passed in year-month-day format
-  if (date_string.includes("-")) {
-    date = new Date(date_string);
+  // If we take the parseInt of 2015-10-5 we return 2015 so it is a valid year time. Unix times will have number much higher
+  if (parseInt(dateString) < 10000) {
+    date = new Date(dateString);
   }
   // Create a js date if it is passed in unix format
   else {
-    let millisecondDate_string = parseInt(date_string); // First convert data_string to milliseconds (needs to be converted into a number as Date() will only accept unix as a number)
-    date = new Date(millisecondDate_string); // Set the date in variable
+    date = new Date(parseInt(dateString)); // needs to be converted into an integer as Date() will only accept unix as an integer
   }
 
   // Handles if date input is invalid
