@@ -24,10 +24,18 @@ app.get("/api/hello", function (req, res) {
 });
 
 // This get takes a timestamp with an empty parameter and returns the current time
-let currentTime = Date().toString();
-let currentUnixTime = Date.now();
 app.get("/api/timestamp", function (req, res) {
+  // Make sure variables are inside the function so the update everytime website is refreshed.
+  let currentTime = Date().toString();
+  let currentUnixTime = Date.now();
   res.json({ unix: currentUnixTime, utc: currentTime });
+});
+
+// This receives anything that is put into date parameter. In function we say if it is valid or not.
+app.get("/api/timestamp/:date", function (req, res) {
+  // :date is just the parameter that we pass into it.
+  let date = req.params.date; // This is what the date parameter passed into the site is
+  res.json({ unix: date });
 });
 
 // listen for requests :)
