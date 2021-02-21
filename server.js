@@ -47,18 +47,20 @@ app.get("/api/timestamp/:date", function (req, res) {
   else {
     let millisecondDate_string = parseInt(date_string); // First convert data_string to milliseconds (needs to be converted into a number as Date() will only accept unix as a number)
     date = new Date(millisecondDate_string); // Set the date in variable
-    // Handles if date input is invalid
-    if (date == "Invalid Date") {
-      res.json({ error: "Invalid Date" });
-    }
+  }
+
+  // Handles if date input is invalid
+  if (date == "Invalid Date") {
+    res.json({ error: "Invalid Date" });
   }
 
   // Handles if date is valid
-
-  res.json({
-    unix: date.valueOf(), // Passes the date in a unix timestamp format
-    utc: date.toUTCString(), // toUTCString is the format the freeCodeCamp test needs to pass
-  });
+  else {
+    res.json({
+      unix: date.valueOf(), // Passes the date in a unix timestamp format
+      utc: date.toUTCString(), // toUTCString is the format the freeCodeCamp test needs to pass
+    });
+  }
 });
 
 // listen for requests :)
