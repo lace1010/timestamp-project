@@ -36,12 +36,10 @@ app.get("/api/timestamp/:date", function (req, res) {
   // :date is just the parameter that we pass into it.
   let date_string = req.params.date; // This is what the date parameter passed into the site is
   let date;
-  // We need to take the dateString and break it up into an array using .split() to create a js Date with its' values
-  let dateInArray = date_string.split("-");
 
   // Create a js date if it is passed in year-month-day format
-  if (dateInArray.length > 1 && dateInArray[0].length <= 4) {
-    date = new Date(dateInArray[0], dateInArray[1] - 1, dateInArray[2]);
+  if (date_string.includes("-")) {
+    date = new Date(date_string);
   }
   // Create a js date if it is passed in unix format
   else {
