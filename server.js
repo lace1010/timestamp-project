@@ -14,17 +14,17 @@ app.use(cors({ optionsSuccessStatus: 200 })); // some legacy browsers choke on 2
 app.use(express.static("public"));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
 // your first API endpoint...
-app.get("/api/hello", function (req, res) {
+app.get("/api/hello", (req, res) => {
   res.json({ greeting: "hello API" });
 });
 
 // This takes a timestamp with an empty parameter and returns the current time since no date is there
-app.get("/api/timestamp", function (req, res) {
+app.get("/api/timestamp", (req, res) => {
   // Make sure variables are inside the function so the update everytime website is refreshed.
   let currentTime = Date().toString();
   let currentUnixTime = Date.now();
@@ -32,7 +32,7 @@ app.get("/api/timestamp", function (req, res) {
 });
 
 // This receives anything that is put into date parameter. In function we say if it is valid or not.
-app.get("/api/timestamp/:date", function (req, res) {
+app.get("/api/timestamp/:date", (req, res) => {
   // :date is just the parameter that we pass into it.
   let dateString = req.params.date; // This is what the date parameter passed into the site is
   let date;
@@ -62,6 +62,6 @@ app.get("/api/timestamp/:date", function (req, res) {
 });
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT || 3000, function () {
+var listener = app.listen(process.env.PORT || 3000, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
